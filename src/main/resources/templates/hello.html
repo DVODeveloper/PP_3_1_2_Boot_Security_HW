@@ -5,7 +5,13 @@
     <title>Hello</title>
 </head>
 <body>
-Hello world!!!
+<p th:text="'Вы авторизовались, как: ' + ${usrDetails.getUsername()}">VALUE</p>
+<br/>
+<p th:text="'Имя пользовтеля: ' + ${usrDetails.getUsername()}">VALUE</p>
+<p th:text="'Фамилия: ' + ${usrDetails.getSurname()}">VALUE</p>
+<p th:text="'Id пользователя: ' + ${usrDetails.getId()}">VALUE</p>
+<p th:text="'Зашифрованный пароль пользователя: ' + ${usrDetails.getPassword()}">VALUE</p>
+<p th:text="'Роль пользователя: ' + ${usrDetails.getRole()}">VALUE</p>
 <br/>
 <form th:action="@{/logout}" th:method="POST">
     <input type="submit" value="Logout">

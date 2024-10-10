@@ -12,8 +12,11 @@
 </head>
 <body>
 
-<p th:text="${user.getUsername()}">VALUE</p>
-<p th:text="${user.getId()}">VALUE</p>
+<p th:text="'Имя пользовтеля: ' + ${user.getUsername()}">VALUE</p>
+<p th:text="'Фамилия пользовтеля: ' + ${user.getSurname()}">VALUE</p>
+<p th:text="'Id пользовтеля: ' + ${user.getId()}">VALUE</p>
+<p th:text="'Зашифрованный пароль пользовтеля: ' + ${user.getPassword()}">VALUE</p>
+<p th:text="'Роль пользовтеля: ' + ${user.getRole()}">VALUE</p>
 <br/>
 <a th:href="@{/users/edit(id=${user.getId()})}">Edit</a>
 
@@ -23,6 +26,12 @@
 </form>
 
 </body>
+
+<br/>
+<form th:action="@{/logout}" th:method="POST">
+  <input type="submit" value="Logout">
+</form>
+
 </html>
 
 </body>

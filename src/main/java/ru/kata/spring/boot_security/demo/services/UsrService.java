@@ -11,7 +11,7 @@ public interface UsrService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void createUser(User user);
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     User readUser(int id);
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
