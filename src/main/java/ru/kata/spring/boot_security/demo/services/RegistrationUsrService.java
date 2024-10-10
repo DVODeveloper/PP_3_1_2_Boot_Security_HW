@@ -22,6 +22,7 @@ public class RegistrationUsrService {
     @Transactional
     public void register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
         usrRepo.save(user);
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,6 +15,7 @@ import ru.kata.spring.boot_security.demo.services.UsrDetailsService;
 
 @Configuration
 @EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UsrDetailsService usrDetailsService;
@@ -25,10 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
@@ -36,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/auth/login?error")
                 .and()
                 .logout()
-                .logoutUrl("/logout").logoutSuccessUrl("/auth/login");
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login");
     }
 
     @Override
